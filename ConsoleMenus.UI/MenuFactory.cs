@@ -5,7 +5,7 @@ namespace ConsoleMenus.UI;
 /// As configured, provides method that returns a Main Menu with three (3) submenus
 /// Can be altered or extended to create other menu/submenu patterns
 /// </summary>
-internal class MenuFactory
+internal static class MenuFactory
 {
     internal static Menu CreateMenus()
     {
