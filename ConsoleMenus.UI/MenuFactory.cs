@@ -7,21 +7,24 @@ namespace ConsoleMenus.UI;
 /// </summary>
 internal static class MenuFactory
 {
-    internal static Menu CreateMenus()
+    internal static Menu GetMainMenu()
     {
-        IEnumerable<Menu> result = [];
-        // create main menu
-        Menu mainMenu = new("Main Menu", ["1 = SubMenu 1", "2 = SubMenu 2", "3 = SubMenu 3", "{esc} = Exit"], [ConsoleKey.D1, ConsoleKey.NumPad1, ConsoleKey.D2, ConsoleKey.NumPad2, ConsoleKey.D3, ConsoleKey.NumPad3, ConsoleKey.Escape], "Select a menu option:", "Error: Invalid menu option selection.", ConsoleKey.None);
+        string title = "*** MAIN MENU ***";
+        string prompt = "Select a menu option:";
+        string error = "Error: Invalid menu option selection.";
 
-        // create three (3) submenus that belong to main menu
-        Menu submenu1 = new("SubMenu 1", ["1 = Option 1", "2 = Option 2", "3 = Option 3", "{esc = Main Menu}"], [ConsoleKey.D1, ConsoleKey.NumPad1, ConsoleKey.D2, ConsoleKey.NumPad2, ConsoleKey.D3, ConsoleKey.NumPad3, ConsoleKey.Escape], "Select a menu option:", "Error: Invalid menu option selection.", ConsoleKey.None);
-        Menu submenu2 = new("SubMenu 2", ["1 = Option 1", "2 = Option 2", "3 = Option 3", "{esc = Main Menu}"], [ConsoleKey.D1, ConsoleKey.NumPad1, ConsoleKey.D2, ConsoleKey.NumPad2, ConsoleKey.D3, ConsoleKey.NumPad3, ConsoleKey.Escape], "Select a menu option:", "Error: Invalid menu option selection.", ConsoleKey.None);
-        Menu submenu3 = new("SubMenu 3", ["1 = Option 1", "2 = Option 2", "3 = Option 3", "{esc = Main Menu}"], [ConsoleKey.D1, ConsoleKey.NumPad1, ConsoleKey.D2, ConsoleKey.NumPad2, ConsoleKey.D3, ConsoleKey.NumPad3, ConsoleKey.Escape], "Select a menu option:", "Error: Invalid menu option selection.", ConsoleKey.None);
+        Action mainMenuOption1Action = () => Console.WriteLine('\n' + "Show submenu 1");
+        Action mainMenuOption2Action = () => Console.WriteLine('\n' + "Show submenu 2");
+        Action mainMenuOption3Action = () => Console.WriteLine('\n' + "Show submenu 3");
+        Action submenuOption1Action = () => Console.WriteLine('\n' + "submenu option 1");
+        Action submenuOption2Action = () => Console.WriteLine('\n' + "submenu option 2");
+        Action submenuOption3Action = () => Console.WriteLine('\n' + "submenu option 3");
 
-        mainMenu.SubMenus.Append(submenu1);
-        mainMenu.SubMenus.Append(submenu2);
-        mainMenu.SubMenus.Append(submenu3);
+        MenuOption mainMenuOption1 = new("1 = Submenu 1", 1, [ConsoleKey.D1, ConsoleKey.NumPad1], mainMenuOption1Action);
+        MenuOption mainMenuOption2 = new("2 = Submenu 2", 2, [ConsoleKey.D2, ConsoleKey.NumPad2], mainMenuOption2Action);
+        MenuOption mainMenuOption3 = new("3 = Submenu 3", 3, [ConsoleKey.D3, ConsoleKey.NumPad3], mainMenuOption3Action);
+        MenuOption[] mainMenuOptions = [mainMenuOption1, mainMenuOption2, mainMenuOption3];
 
-        return mainMenu;
+        return new Menu(title, mainMenuOptions, prompt, error, ConsoleKey.Escape, "{esc} = Exit program", ConsoleKey.None);
     }
 }
