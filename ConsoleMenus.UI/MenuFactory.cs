@@ -13,12 +13,21 @@ internal static class MenuFactory
         string prompt = "Select a menu option:";
         string error = "Error: Invalid menu option selection.";
 
-        Action mainMenuOption1Action = () => Console.WriteLine('\n' + "Show submenu 1");
-        Action mainMenuOption2Action = () => Console.WriteLine('\n' + "Show submenu 2");
-        Action mainMenuOption3Action = () => Console.WriteLine('\n' + "Show submenu 3");
-        Action submenuOption1Action = () => Console.WriteLine('\n' + "submenu option 1");
-        Action submenuOption2Action = () => Console.WriteLine('\n' + "submenu option 2");
-        Action submenuOption3Action = () => Console.WriteLine('\n' + "submenu option 3");
+        Action mainMenuOption1Action = () =>
+        {
+            Menu subMenu = GetSubMenu(1);
+            subMenu.Run();
+        };
+        Action mainMenuOption2Action = () =>
+        {
+            Menu subMenu = GetSubMenu(2);
+            subMenu.Run();
+        };
+        Action mainMenuOption3Action = () =>
+        {
+            Menu subMenu = GetSubMenu(3);
+            subMenu.Run();
+        };
 
         MenuOption mainMenuOption1 = new("1 = Submenu 1", 1, [ConsoleKey.D1, ConsoleKey.NumPad1], mainMenuOption1Action);
         MenuOption mainMenuOption2 = new("2 = Submenu 2", 2, [ConsoleKey.D2, ConsoleKey.NumPad2], mainMenuOption2Action);
@@ -26,5 +35,23 @@ internal static class MenuFactory
         MenuOption[] mainMenuOptions = [mainMenuOption1, mainMenuOption2, mainMenuOption3];
 
         return new Menu(title, mainMenuOptions, prompt, error, ConsoleKey.Escape, "{esc} = Exit program", ConsoleKey.None);
+    }
+
+    internal static Menu GetSubMenu(int menuNumber)
+    {
+        string title = $"** SubMenu {menuNumber} **";
+        string prompt = "Select a menu option:";
+        string error = "Error: Invalid menu option selection.";
+
+        Action subMenuOption1Action = () => Console.WriteLine('\n' + $"submenu {menuNumber} option 1");
+        Action subMenuOption2Action = () => Console.WriteLine('\n' + $"submenu {menuNumber} option 2");
+        Action subMenuOption3Action = () => Console.WriteLine('\n' + $"submenu {menuNumber} option 3");
+
+        MenuOption subMenuOption1 = new($"1 = Submenu {menuNumber} option 1", 1, [ConsoleKey.D1, ConsoleKey.NumPad1], subMenuOption1Action);
+        MenuOption subMenuOption2 = new($"2 = Submenu {menuNumber} option 2", 2, [ConsoleKey.D2, ConsoleKey.NumPad2], subMenuOption2Action);
+        MenuOption subMenuOption3 = new($"3 = Submenu {menuNumber} option 3", 3, [ConsoleKey.D3, ConsoleKey.NumPad3], subMenuOption3Action);
+        MenuOption[] subMenuOptions = [subMenuOption1, subMenuOption2, subMenuOption3];
+
+        return new Menu(title, subMenuOptions, prompt, error, ConsoleKey.Escape, "{esc} = Return to main menu", ConsoleKey.None);
     }
 }
