@@ -4,6 +4,7 @@ namespace ConsoleMenus.UI;
 internal record Menu(
     string Title,
     IEnumerable<MenuOption> MenuOptions,
+    IEnumerable<Menu> SubMenus,
     string Prompt,
     string ValidationError,
     ConsoleKey ExitKey,
@@ -11,6 +12,7 @@ internal record Menu(
     ConsoleKey SelectedKey)
 {
     internal ConsoleKey SelectedKey { get; set; } = SelectedKey;
+    internal IEnumerable<Menu> SubMenus { get; set; } = SubMenus;
     
     internal void GetKey() => SelectedKey = Console.ReadKey().Key;
     internal IEnumerable<ConsoleKey> ValidKeys()
