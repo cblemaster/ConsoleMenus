@@ -15,5 +15,3 @@
 + Nested submenus
 ## Improvement opportunities
 + Bug fix: From main menu, go to submenu, then back to main menu, observe that the main menu title is truncated
-+ Not good that the submenu actions are defined in the factory class; this may be hiding problems in the model
-+ The whole menu factory needs to be reconsidered
